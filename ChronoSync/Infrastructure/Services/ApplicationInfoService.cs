@@ -1,4 +1,4 @@
-﻿using ChronoSync.Application.Interfaces;
+﻿using ChronoSync.Core.Interfaces;
 using System.Reflection;
 
 namespace ChronoSync.Infrastructure.Services

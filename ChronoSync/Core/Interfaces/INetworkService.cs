@@ -1,4 +1,4 @@
-﻿namespace ChronoSync.Application.Interfaces
+﻿namespace ChronoSync.Core.Interfaces
 {
     public interface INetworkService
     {

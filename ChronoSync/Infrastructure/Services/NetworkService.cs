@@ -1,4 +1,4 @@
-﻿using ChronoSync.Application.Interfaces;
+﻿using ChronoSync.Core.Interfaces;
 using System.Net;
 using System.Text;
 using System.Text.Json;

@@ -1,4 +1,4 @@
-﻿using ChronoSync.Application.Interfaces;
+﻿using ChronoSync.Application.Services;
 using ChronoSync.Presentation.Globals;
 
 namespace ChronoSync.Presentation.Forms
@@ -7,14 +7,12 @@ namespace ChronoSync.Presentation.Forms
     {
         private bool isTaskComplete = false;
         private int progress = 0;
-        private readonly INetworkService _networkService;
-        private readonly IApplicationInfoService _applicationInfoService;
+        private readonly ChronosyncSetupService _chronosyncSetupService;
 
-        public SplashScreen(INetworkService networkService, IApplicationInfoService applicationInfoService) // Constructor should be public
+        public SplashScreen(ChronosyncSetupService chronosyncSetupService)
         {
             InitializeComponent();
-            _networkService = networkService;
-            _applicationInfoService = applicationInfoService;
+            _chronosyncSetupService = chronosyncSetupService;
         }
 
         private async void SplashScreen_Load(object sender, EventArgs e)
@@ -26,8 +24,8 @@ namespace ChronoSync.Presentation.Forms
         {
             try
             {
-                AppState.IPAddress = await _networkService.GetPublicIPAddressAsync();
-                AppState.AppVersion = _applicationInfoService.GetApplicationVersion();
+                AppState.IPAddress = await _chronosyncSetupService.GetNetworkIpAddressAsync();
+                AppState.AppVersion = _chronosyncSetupService.GetCurrentVersion();
                 ChronoSyncProgressBar.Value = 50;
                 await Task.Delay(10000);  // Simulate additional loading tasks
                 ChronoSyncProgressBar.Value = 100;

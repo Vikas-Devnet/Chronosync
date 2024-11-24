@@ -1,8 +1,7 @@
-using ChronoSync.Application.Interfaces;
+using ChronoSync.Application.Services;
+using ChronoSync.Core.Interfaces;
 using ChronoSync.Infrastructure.Services;
 using ChronoSync.Presentation.Forms;
-using System;
-using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChronoSync
@@ -24,7 +23,7 @@ namespace ChronoSync
             var splashScreen = _serviceProvider.GetRequiredService<SplashScreen>();
             if (splashScreen.ShowDialog() == DialogResult.OK)
             {
-                System.Windows.Forms.Application.Run(_serviceProvider.GetRequiredService<ActionPanel>());
+                System.Windows.Forms.Application.Run(new ActionPanel());
             }
             else
             {
@@ -39,11 +38,10 @@ namespace ChronoSync
             // Register services
             serviceCollection.AddSingleton<INetworkService, NetworkService>();
             serviceCollection.AddSingleton<IApplicationInfoService, ApplicationInfoService>();
+            serviceCollection.AddSingleton<ChronosyncSetupService>();
 
             // Register forms
             serviceCollection.AddTransient<SplashScreen>();
-            serviceCollection.AddTransient<ActionPanel>();
-
             // Build the service provider
             _serviceProvider = serviceCollection.BuildServiceProvider();
         }
